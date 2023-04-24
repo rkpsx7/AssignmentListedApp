@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ListedInAssignment</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="good_morning">Good Morning</string>
+</resources>
