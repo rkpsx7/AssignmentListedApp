@@ -2,7 +2,7 @@ package com.dev_akash.assignmentlistedapp.data
 
 import com.google.gson.annotations.SerializedName
 
-data class RecentLinks(
+data class LinksDto(
 
     @SerializedName("url_id")
     var urlId: Int? = null,

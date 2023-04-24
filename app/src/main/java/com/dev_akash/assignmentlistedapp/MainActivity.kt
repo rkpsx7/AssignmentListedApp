@@ -4,14 +4,21 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.dev_akash.assignmentlistedapp.databinding.ActivityMainBinding
 import com.dev_akash.assignmentlistedapp.utils.DateTimeUtils.getMonthValueFromDate
 import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -50,47 +57,34 @@ class MainActivity : AppCompatActivity() {
         "2023-04-24" to 0
     )
 
-    private val viewModel:MainViewModel by viewModels()
+    val labels = mutableListOf<String>()
+    val datas = mutableListOf<Entry>()
+
+
+    private val viewModel: MainViewModel by viewModels()
+
+    private val statsAdapter = StatsAdapter()
 
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        viewModel.getDashboardData()
 
-//        viewModel.getDashboardData()
+        setUpTabs()
+
+        setStats()
 
 
         val xtr = map.map {
-            Entry(getMonthValueFromDate(it.key),it.value.toFloat())
+            Entry(getMonthValueFromDate(it.key), it.value.toFloat())
         }
 
         binding.chartLayout.chart.apply {
-            xAxis.valueFormatter = object : ValueFormatter(){
-                override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-                    return when (value) {
-                        0.0f -> "January"
-                        1.0f -> "February"
-                        2.0f -> "Mars"
-                        3.0f -> "April"
-                        4.0f -> "May"
-                        5.0f -> "June"
-                        6.0f -> "July"
-                        7.0f -> "August"
-                        8.0f -> "September"
-                        9.0f -> "October"
-                        10.0f -> "November"
-                        11.0f -> "December"
-                        else -> {
-                            ""
-                        }
-//                            throw IllegalArgumentException("$value is not a valid month")
-                    }
-                }
-            }
 
-
-            val dataSet = LineDataSet(xtr,"Label1")
+            val dataSet = LineDataSet(xtr, "Label1")
+            dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
             dataSet.color = Color.BLUE
             dataSet.valueTextColor = Color.GREEN
 
@@ -98,5 +92,80 @@ class MainActivity : AppCompatActivity() {
             this.invalidate()
         }
 
+        binding.chartLayout.chart.xAxis.apply {
+            position = XAxis.XAxisPosition.BOTTOM
+            setDrawAxisLine(true)
+            setDrawGridLines(false)
+            setDrawLabels(true)
+            labelCount = labels.size // important
+            spaceMax = 0.5f // optional
+            spaceMin = 0.5f // optional
+
+//            valueFormatter = object : ValueFormatter() {
+//                override fun getFormattedValue(value: Float): String {
+//                    return labels[value.toInt()]
+//                }
+//            }
+        }
+
+        binding.chartLayout.chart.getAxis(YAxis.AxisDependency.LEFT).apply {
+            spaceMax = 0.5f // optional
+            spaceMin = 0.5f // optional
+            labelCount = 5
+
+            axisMaximum = 100f
+        }
+
+    }
+
+    private fun setUpTabs() {
+        val tabAdapter = LinksTabAdapter(supportFragmentManager, lifecycle)
+        binding.viewPager.isSaveEnabled = true
+        binding.viewPager.adapter = tabAdapter
+
+//        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+//            tab.text = getTabNames(position)
+//        }.attach()
+
+        binding.tabLayout.apply {
+            addTab(newTab().setText("Top Links"))
+            addTab(newTab().setText("Recent Links"))
+
+        }
+
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                binding.viewPager.currentItem = tab?.position ?: 0
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+
+        })
+
+        binding.viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                binding.tabLayout.apply {
+                    selectTab(getTabAt(position))
+                }
+            }
+        })
+    }
+
+    private fun setStats() {
+        binding.rvStats.apply {
+            adapter = statsAdapter
+            layoutManager = LinearLayoutManager(this@MainActivity).also {
+                it.orientation = LinearLayoutManager.HORIZONTAL
+            }
+        }
+
+        viewModel.statsLiveData.observe(this) {
+            statsAdapter.submitList(it)
+        }
     }
 }

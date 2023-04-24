@@ -33,9 +33,9 @@ data class DashBoardResponse(
 
 data class Data(
     @SerializedName("recent_links")
-    var recentLinks: ArrayList<RecentLinks> = arrayListOf(),
+    var recentLinks: ArrayList<LinksDto> = arrayListOf(),
     @SerializedName("top_links")
-    var topLinks: ArrayList<TopLinks> = arrayListOf(),
+    var topLinks: ArrayList<LinksDto> = arrayListOf(),
     @SerializedName("overall_url_chart")
     var overallUrlChart: HashMap<String, Int>? = null
 
