@@ -40,3 +40,8 @@ Install my-project with Android Studio
 
   URL :- https://github.com/rkpsx7/AssignmentListedApp.git
 ```
+
+## Here are the some screenshots of the cloned application
+![GitHub Cards Preview](https://firebasestorage.googleapis.com/v0/b/customcamarax.appspot.com/o/dummyNotToUseImages%2FIMG-20230426-WA0004.jpg?alt=media&token=6bdfd77f-546c-44d1-a916-cfa3afdfb8f5)
+![GitHub Cards Preview](https://firebasestorage.googleapis.com/v0/b/customcamarax.appspot.com/o/dummyNotToUseImages%2FIMG-20230426-WA0006.jpg?alt=media&token=a466c8dd-0228-447b-b081-d7877d45f105)
+![GitHub Cards Preview](https://firebasestorage.googleapis.com/v0/b/customcamarax.appspot.com/o/dummyNotToUseImages%2FIMG-20230426-WA0003.jpg?alt=media&token=61de4d40-faff-4dfd-898f-b37106a0769c)
