@@ -32,27 +32,23 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/range" />
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/range"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp12"
                 android:layout_marginEnd="@dimen/dp12"
                 android:fontFamily="@font/figtree_medium"
                 android:text="@string/jan_2021_dec_2021"
-                android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp12"
-                app:cornerRadius="@dimen/dp8"
-                app:icon="@drawable/ic_clock"
-                app:iconGravity="textEnd"
-                app:iconTint="@color/title_color_999"
+                android:background="@drawable/date_range_bg"
+                android:drawableEnd="@drawable/ic_clock"
+                android:drawablePadding="@dimen/dp8"
+                android:paddingHorizontal="@dimen/dp8"
+                android:paddingVertical="@dimen/dp8"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:rippleColor="@color/transparent"
-                app:strokeColor="@color/greyD8"
-                app:strokeWidth="@dimen/dp1" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/chart"
