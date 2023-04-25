@@ -103,6 +103,7 @@ class MainActivity : AppCompatActivity() {
         binding.chartLayout.chart.axisLeft.apply {
             setDrawAxisLine(false)
             setDrawGridLines(true)
+            gridColor = getColor(R.color.grid_line_color)
             axisMinimum = 0f
             axisMaximum = 100f
             textColor = ContextCompat.getColor(this@MainActivity, R.color.label_color)
@@ -115,6 +116,7 @@ class MainActivity : AppCompatActivity() {
         binding.chartLayout.chart.xAxis.apply {
             setDrawAxisLine(false)
             setDrawGridLines(true)
+            gridColor = getColor(R.color.grid_line_color)
             valueFormatter = IndexAxisValueFormatter(
                 arrayOf("", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
             )

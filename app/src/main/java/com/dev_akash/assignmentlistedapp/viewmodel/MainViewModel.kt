@@ -50,9 +50,6 @@ class MainViewModel @Inject constructor(
                     prepareStatsList(res.data)
                     postLinksData(res.data)
                 }
-                Resource.Status.ERROR -> {
-
-                }
                 else -> {}
             }
         }
@@ -77,18 +74,7 @@ class MainViewModel @Inject constructor(
                 monthWiseClickData.forEach { mapEntry ->
                     finalEntries.find { it.x == mapEntry.key }?.y = mapEntry.value.toFloat()
                 }
-                finalEntries.forEach {
-                    if (it.x==1f) it.y=10f
-                    if (it.x==2f) it.y=50f
-                    if (it.x==3f) it.y=30f
-                    if (it.x==4f) it.y=50f
-                    if (it.x==5f) it.y=60f
-                    if (it.x==6f) it.y=70f
-                    if (it.x==7f) it.y=72f
-                    if (it.x==8f) it.y=75f
-                    if (it.x==9f) it.y=70f
-                    if (it.x==10f) it.y=70f
-                }
+
                 _chartsLiveData.postValue(finalEntries)
 
             }
