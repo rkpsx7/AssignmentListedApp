@@ -1,4 +1,4 @@
-package com.dev_akash.assignmentlistedapp.data
+package com.dev_akash.assignmentlistedapp.model
 
 import androidx.annotation.DrawableRes
 

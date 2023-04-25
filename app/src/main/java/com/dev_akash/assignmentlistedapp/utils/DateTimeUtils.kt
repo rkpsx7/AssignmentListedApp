@@ -1,6 +1,8 @@
 package com.dev_akash.assignmentlistedapp.utils
 
+import android.content.res.Resources
 import android.icu.text.DateFormatSymbols
+import com.dev_akash.assignmentlistedapp.R
 import org.threeten.bp.LocalDate
 import java.util.*
 
@@ -13,11 +15,11 @@ object DateTimeUtils {
 
     fun getGreetingText(): String {
         return when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
-            in 0..11 -> "Good Morning"
-            in 12..15 -> "Good Afternoon"
-            in 16..20 -> "Good Evening"
-            in 21..23 -> "Good Night"
-            else -> "Hi!"
+            in 0..11 -> Resources.getSystem().getString(R.string.good_morning)
+            in 12..15 -> Resources.getSystem().getString(R.string.afternoon)
+            in 16..20 -> Resources.getSystem().getString(R.string.good_evening)
+            in 21..23 -> Resources.getSystem().getString(R.string.good_night)
+            else -> Resources.getSystem().getString(R.string.hi)
         }
     }
 
@@ -26,12 +28,16 @@ object DateTimeUtils {
             val cal = Calendar.getInstance()
             date?.let { cal.time = date }
             return "${cal.get(Calendar.DAY_OF_MONTH)}" +
-                    " ${DateFormatSymbols().shortMonths[cal.get(Calendar.MONTH)]} " +
+                    " ${getShortMonthName(cal.get(Calendar.MONTH))} " +
                     "${cal.get(Calendar.YEAR)}"
 
         } catch (e: Exception) {
             e.printStackTrace()
             ""
         }
+    }
+
+    fun getShortMonthName(month: Int): String {
+        return DateFormatSymbols().shortMonths[month]
     }
 }

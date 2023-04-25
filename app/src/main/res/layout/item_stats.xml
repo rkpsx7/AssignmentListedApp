@@ -7,9 +7,11 @@
 
     </data>
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.cardview.widget.CardView
         style="@style/Platform.MaterialComponents.Light"
         android:layout_width="wrap_content"
+        android:elevation="50dp"
+        app:cardBackgroundColor="@color/white"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/dp8"
         app:cardUseCompatPadding="true">
@@ -63,5 +65,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
 </layout>

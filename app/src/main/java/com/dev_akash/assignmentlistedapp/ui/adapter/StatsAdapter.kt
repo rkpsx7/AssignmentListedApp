@@ -1,10 +1,10 @@
-package com.dev_akash.assignmentlistedapp
+package com.dev_akash.assignmentlistedapp.ui.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.dev_akash.assignmentlistedapp.data.Stats
+import com.dev_akash.assignmentlistedapp.model.Stats
 import com.dev_akash.assignmentlistedapp.databinding.ItemStatsBinding
 import com.dev_akash.assignmentlistedapp.utils.loadImage
 

@@ -1,4 +1,4 @@
-package com.dev_akash.assignmentlistedapp
+package com.dev_akash.assignmentlistedapp.core
 
 import android.app.Application
 import com.dev_akash.assignmentlistedapp.utils.AuthTokenManager

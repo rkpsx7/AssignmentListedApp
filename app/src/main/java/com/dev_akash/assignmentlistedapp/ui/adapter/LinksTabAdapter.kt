@@ -1,9 +1,11 @@
-package com.dev_akash.assignmentlistedapp
+package com.dev_akash.assignmentlistedapp.ui.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.dev_akash.assignmentlistedapp.ui.fragents.RecentLinksFragment
+import com.dev_akash.assignmentlistedapp.ui.fragents.TopLinksFragment
 
 class LinksTabAdapter(
     fm: FragmentManager,

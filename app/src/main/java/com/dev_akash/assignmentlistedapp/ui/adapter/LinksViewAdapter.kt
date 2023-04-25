@@ -1,10 +1,10 @@
-package com.dev_akash.assignmentlistedapp
+package com.dev_akash.assignmentlistedapp.ui.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.dev_akash.assignmentlistedapp.data.LinksDto
+import com.dev_akash.assignmentlistedapp.model.LinksDto
 import com.dev_akash.assignmentlistedapp.databinding.ItemLinkViewBinding
 import com.dev_akash.assignmentlistedapp.utils.ClipboardService
 import com.dev_akash.assignmentlistedapp.utils.DateTimeUtils.getFormattedDate

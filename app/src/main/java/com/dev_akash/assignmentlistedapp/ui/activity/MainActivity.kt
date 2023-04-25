@@ -1,74 +1,39 @@
-package com.dev_akash.assignmentlistedapp
+package com.dev_akash.assignmentlistedapp.ui.activity
 
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
-import android.graphics.Shader
+import android.graphics.drawable.GradientDrawable
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import com.dev_akash.assignmentlistedapp.ui.adapter.LinksTabAdapter
+import com.dev_akash.assignmentlistedapp.viewmodel.MainViewModel
+import com.dev_akash.assignmentlistedapp.R
+import com.dev_akash.assignmentlistedapp.ui.adapter.StatsAdapter
 import com.dev_akash.assignmentlistedapp.databinding.ActivityMainBinding
 import com.dev_akash.assignmentlistedapp.utils.Constants.SUPPORT_WHATSAPP_NUMBER
 import com.dev_akash.assignmentlistedapp.utils.DateTimeUtils.getGreetingText
-import com.dev_akash.assignmentlistedapp.utils.DateTimeUtils.getMonthValueFromDate
 import com.dev_akash.assignmentlistedapp.utils.SharedPrefs
 import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.components.YAxis
-import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    val map: HashMap<String, Int> = hashMapOf(
-        "2023-03-25" to 0,
-        "2023-03-26" to 0,
-        "2023-03-27" to 0,
-        "2023-03-28" to 0,
-        "2023-03-29" to 0,
-        "2023-03-30" to 0,
-        "2023-03-31" to 0,
-        "2023-04-01" to 0,
-        "2023-04-02" to 0,
-        "2023-04-03" to 0,
-        "2023-04-04" to 0,
-        "2023-04-05" to 2,
-        "2023-04-06" to 0,
-        "2023-04-07" to 0,
-        "2023-04-08" to 0,
-        "2023-04-09" to 10,
-        "2023-04-10" to 2,
-        "2023-04-11" to 0,
-        "2023-04-12" to 0,
-        "2023-04-13" to 0,
-        "2023-04-14" to 0,
-        "2023-04-15" to 0,
-        "2023-04-16" to 0,
-        "2023-04-17" to 0,
-        "2023-04-18" to 0,
-        "2023-04-19" to 0,
-        "2023-04-20" to 0,
-        "2023-04-21" to 0,
-        "2023-04-22" to 0,
-        "2023-04-23" to 0,
-        "2023-04-24" to 0
-    )
-
-    val labels = mutableListOf<String>()
-    val datas = mutableListOf<Entry>()
-
 
     private val viewModel: MainViewModel by viewModels()
 
     private val statsAdapter = StatsAdapter()
-
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,49 +45,99 @@ class MainActivity : AppCompatActivity() {
 
         setUserProfile()
 
+        setCharts()
+
         setStats()
 
         setUpButtons()
 
-        val xtr = map.map {
-            Entry(getMonthValueFromDate(it.key), it.value.toFloat())
+    }
+
+    private fun setCharts() {
+        configureLineChart()
+        configureXAxis()
+        configureYAxis()
+        val lineChart = binding.chartLayout.chart
+
+        viewModel.chartsLiveData.observe(this) {
+            it?.let { entries ->
+                val dataSet = LineDataSet(entries, "Data")
+                dataSet.setDrawCircles(false)
+                dataSet.setDrawValues(false)
+                dataSet.lineWidth = 2f
+                dataSet.color = ContextCompat.getColor(this, R.color.app_primary)
+
+                val gradientColors = intArrayOf(
+                    ContextCompat.getColor(this, R.color.gradient_start),
+                    ContextCompat.getColor(this, R.color.gradient_end)
+                )
+                val gradientDrawable = GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, gradientColors)
+                dataSet.fillDrawable = gradientDrawable
+                dataSet.setDrawFilled(true)
+
+                val lineData = LineData(dataSet)
+                lineChart.data = lineData
+                lineChart.animateXY(1000,1000)
+                lineChart.invalidate()
+            }
         }
 
+
+    }
+
+    private fun configureLineChart() {
         binding.chartLayout.chart.apply {
+            description.isEnabled = false
+            legend.isEnabled = false
+            axisRight.isEnabled = false
+            isDragEnabled = false
+            setScaleEnabled(false)
 
-            val dataSet = LineDataSet(xtr, "Label1")
-            dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
-            dataSet.color = Color.BLUE
-            dataSet.valueTextColor = Color.GREEN
-
-            data = LineData(dataSet)
-            this.invalidate()
+            setDrawGridBackground(false)
+            setDrawBorders(false)
         }
+    }
 
-        binding.chartLayout.chart.xAxis.apply {
-            position = XAxis.XAxisPosition.BOTTOM
-            setDrawAxisLine(true)
-            setDrawGridLines(false)
-            setDrawLabels(true)
-            labelCount = labels.size // important
-            spaceMax = 0.5f // optional
-            spaceMin = 0.5f // optional
-
-//            valueFormatter = object : ValueFormatter() {
-//                override fun getFormattedValue(value: Float): String {
-//                    return labels[value.toInt()]
-//                }
-//            }
-        }
-
-        binding.chartLayout.chart.getAxis(YAxis.AxisDependency.LEFT).apply {
-            spaceMax = 0.5f // optional
-            spaceMin = 0.5f // optional
-            labelCount = 5
-
+    private fun configureYAxis() {
+        binding.chartLayout.chart.axisLeft.apply {
+            setDrawAxisLine(false)
+            setDrawGridLines(true)
+            axisMinimum = 0f
             axisMaximum = 100f
+            textColor = ContextCompat.getColor(this@MainActivity, R.color.label_color)
+            textSize = 9f
+            setLabelCount(5, true)
         }
+    }
 
+    private fun configureXAxis() {
+        binding.chartLayout.chart.xAxis.apply {
+            setDrawAxisLine(false)
+            setDrawGridLines(true)
+//            labelCount = 12
+            valueFormatter = IndexAxisValueFormatter(
+                arrayOf(
+                    "",
+                    "Jan",
+                    "Feb",
+                    "Mar",
+                    "Apr",
+                    "May",
+                    "Jun",
+                    "Jul",
+                    "Aug",
+                    "Sep",
+                    "Oct",
+                    "Nov",
+                    "Dec"
+                )
+            )
+            setLabelCount(13,true)
+            textColor = ContextCompat.getColor(this@MainActivity, R.color.label_color)
+            textSize = 9f
+            position = XAxis.XAxisPosition.BOTTOM
+
+        }
     }
 
     private fun setUpButtons() {
@@ -134,8 +149,7 @@ class MainActivity : AppCompatActivity() {
                 intent.data = Uri.parse("http://api.whatsapp.com/send?phone=+91$mobileNumber")
                 startActivity(intent)
             } else {
-                Toast.makeText(this, "WhatsApp is not installed on your device", Toast.LENGTH_SHORT)
-                    .show()
+               showToast("WhatsApp is not installed on your device")
             }
 
         }
@@ -154,8 +168,8 @@ class MainActivity : AppCompatActivity() {
         binding.viewPager.adapter = tabAdapter
 
         binding.tabLayout.apply {
-            addTab(newTab().setText("Top Links"))
-            addTab(newTab().setText("Recent Links"))
+            addTab(newTab().setText(getString(R.string.top_links)))
+            addTab(newTab().setText(getString(R.string.recent_links)))
         }
 
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -180,9 +194,10 @@ class MainActivity : AppCompatActivity() {
     private fun setStats() {
         binding.rvStats.apply {
             adapter = statsAdapter
-            layoutManager = LinearLayoutManager(this@MainActivity).also {
-                it.orientation = LinearLayoutManager.HORIZONTAL
-            }
+            layoutManager = LinearLayoutManager(
+                this@MainActivity,
+                LinearLayoutManager.HORIZONTAL,false
+            )
         }
 
         viewModel.statsLiveData.observe(this) {
@@ -198,5 +213,9 @@ class MainActivity : AppCompatActivity() {
             false
         }
         return isInstalled
+    }
+
+    private fun showToast(msg:String){
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 }

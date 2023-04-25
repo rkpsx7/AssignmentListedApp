@@ -3,7 +3,6 @@ package com.dev_akash.assignmentlistedapp.utils
 import android.content.ClipData
 import android.content.Context
 import android.widget.Toast
-import com.dev_akash.assignmentlistedapp.ApplicationKClass
 
 object ClipboardService {
     fun copyToClipboard(context: Context, text: String) {

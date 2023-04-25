@@ -1,6 +1,6 @@
 package com.dev_akash.assignmentlistedapp.network
 
-import com.dev_akash.assignmentlistedapp.data.DashBoardResponse
+import com.dev_akash.assignmentlistedapp.model.DashBoardResponse
 import retrofit2.Response
 import retrofit2.http.GET
 
