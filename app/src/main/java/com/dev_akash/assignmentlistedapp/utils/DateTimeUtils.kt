@@ -1,6 +1,5 @@
 package com.dev_akash.assignmentlistedapp.utils
 
-import android.content.res.Resources
 import android.icu.text.DateFormatSymbols
 import com.dev_akash.assignmentlistedapp.R
 import org.threeten.bp.LocalDate
@@ -15,11 +14,11 @@ object DateTimeUtils {
 
     fun getGreetingText(): String {
         return when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
-            in 0..11 -> Resources.getSystem().getString(R.string.good_morning)
-            in 12..15 -> Resources.getSystem().getString(R.string.afternoon)
-            in 16..20 -> Resources.getSystem().getString(R.string.good_evening)
-            in 21..23 -> Resources.getSystem().getString(R.string.good_night)
-            else -> Resources.getSystem().getString(R.string.hi)
+            in 0..11 -> getStringResource(R.string.good_morning)
+            in 12..15 -> getStringResource(R.string.afternoon)
+            in 16..20 ->getStringResource(R.string.good_evening)
+            in 21..23 -> getStringResource(R.string.good_night)
+            else -> getStringResource(R.string.hi)
         }
     }
 

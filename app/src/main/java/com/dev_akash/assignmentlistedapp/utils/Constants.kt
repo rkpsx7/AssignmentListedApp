@@ -9,5 +9,6 @@ object Constants {
     const val PREFS_NAME = "OPEN_IN_APP_PREFS"
     const val DEFAULT_INT_VALUE = 0
     const val DEFAULT_STRING_VALUE = ""
+    const val FAQ_WEBSITE_LINK = "https://openinapp.com/"
 
 }

@@ -13,7 +13,7 @@
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="@dimen/dp8"
         app:cardUseCompatPadding="true"
-        app:elevation="50dp">
+        app:elevation="@dimen/dp50">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -24,7 +24,7 @@
                 android:id="@+id/tvOverviewLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="@dimen/dp12"
                 android:fontFamily="@font/figtree_regular"
                 android:text="@string/overview"
                 android:textColor="@color/label_color"
@@ -37,29 +37,29 @@
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="12dp"
+                android:layout_marginTop="@dimen/dp12"
+                android:layout_marginEnd="@dimen/dp12"
                 android:fontFamily="@font/figtree_medium"
                 android:text="@string/jan_2021_dec_2021"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:textSize="12sp"
+                android:textSize="@dimen/sp12"
                 app:cornerRadius="@dimen/dp8"
                 app:icon="@drawable/ic_clock"
                 app:iconGravity="textEnd"
-                app:iconTint="#999CA0"
+                app:iconTint="@color/title_color_999"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:rippleColor="@color/transparent"
-                app:strokeColor="#D8D8D8"
-                app:strokeWidth="1dp" />
+                app:strokeColor="@color/greyD8"
+                app:strokeWidth="@dimen/dp1" />
 
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/chart"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginHorizontal="12dp"
-                android:layout_marginVertical="14dp"
+                android:layout_height="@dimen/dp150"
+                android:layout_marginHorizontal="@dimen/dp12"
+                android:layout_marginVertical="@dimen/dp14"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/range" />
 

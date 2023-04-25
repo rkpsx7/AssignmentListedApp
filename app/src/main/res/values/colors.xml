@@ -13,4 +13,7 @@
     <color name="gradient_start">#750E6FFF</color>
     <color name="gradient_end">#000E6FFF</color>
     <color name="label_color">#999CA0</color>
+    <color name="greyD8">#D8D8D8</color>
+    <color name="title_color_999">#999CA0</color>
+    <color name="blue_text">#0E6FFF</color>
 </resources>

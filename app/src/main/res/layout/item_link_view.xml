@@ -24,13 +24,13 @@
                 android:id="@+id/topSection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="12dp"
-                android:paddingTop="12dp">
+                android:paddingHorizontal="@dimen/dp12"
+                android:paddingTop="@dimen/dp12">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/icon"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="@dimen/dp48"
+                    android:layout_height="@dimen/dp48"
                     android:layout_marginBottom="@dimen/dp16"
                     android:scaleType="fitXY"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -42,8 +42,8 @@
                     android:id="@id/tvTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginStart="@dimen/dp12"
+                    android:layout_marginEnd="@dimen/dp24"
                     android:ellipsize="end"
                     android:fontFamily="@font/figtree_regular"
                     android:maxLines="1"
@@ -57,14 +57,14 @@
                     android:id="@+id/tvSubTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="18dp"
+                    android:layout_marginTop="@dimen/dp2"
+                    android:layout_marginEnd="@dimen/dp8"
+                    android:layout_marginBottom="@dimen/dp18"
                     android:ellipsize="end"
                     android:fontFamily="@font/figtree_regular"
                     android:maxLines="1"
-                    android:textColor="#999CA0"
-                    android:textSize="12sp"
+                    android:textColor="@color/title_color_999"
+                    android:textSize="@dimen/sp12"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/tvClicksTitle"
                     app:layout_constraintStart_toStartOf="@id/tvTitle"
@@ -79,7 +79,7 @@
                     android:fontFamily="@font/figtree_bold"
                     android:maxLines="1"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/sp16"
                     app:layout_constraintBottom_toBottomOf="@id/tvTitle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/tvTitle"
@@ -93,8 +93,8 @@
                     android:fontFamily="@font/figtree_regular"
                     android:maxLines="1"
                     android:text="@string/clicks"
-                    android:textColor="#999CA0"
-                    android:textSize="12sp"
+                    android:textColor="@color/title_color_999"
+                    android:textSize="@dimen/sp12"
                     app:layout_constraintBottom_toBottomOf="@id/tvSubTitle"
                     app:layout_constraintEnd_toEndOf="@id/tvClicks"
                     app:layout_constraintTop_toTopOf="@id/tvSubTitle" />
@@ -105,8 +105,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/link_card_dotted_bg"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="12dp">
+                android:paddingHorizontal="@dimen/dp12"
+                android:paddingVertical="@dimen/dp12">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvLink"
@@ -114,12 +114,12 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="60dp"
+                    android:layout_marginEnd="@dimen/dp60"
                     android:layout_toStartOf="@id/ivCopy"
                     android:ellipsize="end"
                     android:fontFamily="@font/figtree_regular"
                     android:maxLines="1"
-                    android:textColor="#0E6FFF"
+                    android:textColor="@color/blue_text"
                     tools:text="https://samplelink.oia.bio/ashd/samplelink.oia.bio/ashd/samplelink.oia.bio/ashd" />
 
 
@@ -129,8 +129,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="2dp"
+                    android:paddingHorizontal="@dimen/dp8"
+                    android:paddingVertical="@dimen/dp2"
                     android:src="@drawable/ic_copy" />
 
             </RelativeLayout>

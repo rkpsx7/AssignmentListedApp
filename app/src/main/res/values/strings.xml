@@ -17,4 +17,5 @@
     <string name="good_evening">Good Evening</string>
     <string name="good_night">Good Night</string>
     <string name="hi">Hi!</string>
+    <string name="whatsapp_error_msg">WhatsApp is not installed on your device</string>
 </resources>

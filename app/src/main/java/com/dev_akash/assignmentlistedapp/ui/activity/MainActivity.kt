@@ -12,14 +12,15 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
-import com.dev_akash.assignmentlistedapp.ui.adapter.LinksTabAdapter
-import com.dev_akash.assignmentlistedapp.viewmodel.MainViewModel
 import com.dev_akash.assignmentlistedapp.R
-import com.dev_akash.assignmentlistedapp.ui.adapter.StatsAdapter
 import com.dev_akash.assignmentlistedapp.databinding.ActivityMainBinding
+import com.dev_akash.assignmentlistedapp.ui.adapter.LinksTabAdapter
+import com.dev_akash.assignmentlistedapp.ui.adapter.StatsAdapter
+import com.dev_akash.assignmentlistedapp.utils.Constants.FAQ_WEBSITE_LINK
 import com.dev_akash.assignmentlistedapp.utils.Constants.SUPPORT_WHATSAPP_NUMBER
 import com.dev_akash.assignmentlistedapp.utils.DateTimeUtils.getGreetingText
 import com.dev_akash.assignmentlistedapp.utils.SharedPrefs
+import com.dev_akash.assignmentlistedapp.viewmodel.MainViewModel
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -114,23 +115,8 @@ class MainActivity : AppCompatActivity() {
         binding.chartLayout.chart.xAxis.apply {
             setDrawAxisLine(false)
             setDrawGridLines(true)
-//            labelCount = 12
             valueFormatter = IndexAxisValueFormatter(
-                arrayOf(
-                    "",
-                    "Jan",
-                    "Feb",
-                    "Mar",
-                    "Apr",
-                    "May",
-                    "Jun",
-                    "Jul",
-                    "Aug",
-                    "Sep",
-                    "Oct",
-                    "Nov",
-                    "Dec"
-                )
+                arrayOf("", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
             )
             setLabelCount(13,true)
             textColor = ContextCompat.getColor(this@MainActivity, R.color.label_color)
@@ -142,23 +128,26 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpButtons() {
         binding.btnChatWithUs.setOnClickListener {
-
             val mobileNumber = SharedPrefs.getStringParam(SUPPORT_WHATSAPP_NUMBER)
             if (isWhatsAppInstalled()) {
                 val intent = Intent(Intent.ACTION_VIEW)
                 intent.data = Uri.parse("http://api.whatsapp.com/send?phone=+91$mobileNumber")
                 startActivity(intent)
             } else {
-               showToast("WhatsApp is not installed on your device")
+               showToast(getString(R.string.whatsapp_error_msg))
             }
+        }
 
+        binding.btnFaq.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW).also { it.data = Uri.parse(FAQ_WEBSITE_LINK) }
+            startActivity(intent)
         }
     }
 
     private fun setUserProfile() {
         binding.apply {
             tvGreeting.text = getGreetingText()
-            tvName.text = "Ajay Manva" //Hardcoding name as API doesn't provide profile details
+            tvName.text = "Ajay Manva" //Hardcoding name as API doesn't provide this
         }
     }
 
