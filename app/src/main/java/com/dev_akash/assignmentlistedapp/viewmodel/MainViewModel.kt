@@ -15,6 +15,7 @@ import com.dev_akash.assignmentlistedapp.utils.DateTimeUtils.getMonthValueFromDa
 import com.dev_akash.assignmentlistedapp.utils.SharedPrefs
 import com.github.mikephil.charting.data.Entry
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,8 +24,8 @@ class MainViewModel @Inject constructor(
     val repo: DashboardRepo
 ) : ViewModel() {
 
-    private val _chartsLiveData = MutableLiveData<List<Entry>>()
-    val chartsLiveData: LiveData<List<Entry>>
+    private val _chartsLiveData = MutableLiveData<List<Entry>?>()
+    val chartsLiveData: LiveData<List<Entry>?>
         get() = _chartsLiveData
 
     private val _statsLiveData = MutableLiveData<List<Stats>>()
@@ -40,7 +41,7 @@ class MainViewModel @Inject constructor(
         get() = _recentLinksLiveData
 
     fun getDashboardData() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val res = repo.getDashboardData()
 
             when (res.status) {
@@ -49,6 +50,9 @@ class MainViewModel @Inject constructor(
                     saveSupportNumber(res.data?.supportWhatsappNumber)
                     prepareStatsList(res.data)
                     postLinksData(res.data)
+                }
+                Resource.Status.ERROR -> {
+                    _chartsLiveData.postValue(null)
                 }
                 else -> {}
             }
