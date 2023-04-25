@@ -20,6 +20,7 @@ import com.dev_akash.assignmentlistedapp.utils.Constants.FAQ_WEBSITE_LINK
 import com.dev_akash.assignmentlistedapp.utils.Constants.SUPPORT_WHATSAPP_NUMBER
 import com.dev_akash.assignmentlistedapp.utils.DateTimeUtils.getGreetingText
 import com.dev_akash.assignmentlistedapp.utils.SharedPrefs
+import com.dev_akash.assignmentlistedapp.utils.visibilityGone
 import com.dev_akash.assignmentlistedapp.viewmodel.MainViewModel
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.LineData
@@ -62,6 +63,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.chartsLiveData.observe(this) {
             it?.let { entries ->
+                binding.progressBar.visibilityGone()
                 val dataSet = LineDataSet(entries, "Data")
                 dataSet.setDrawCircles(false)
                 dataSet.setDrawValues(false)
@@ -80,6 +82,10 @@ class MainActivity : AppCompatActivity() {
                 lineChart.data = lineData
                 lineChart.animateXY(1000,1000)
                 lineChart.invalidate()
+            }?: kotlin.run {
+                binding.progressBar.visibilityGone()
+                showToast("Something went wrong!")
+                showToast("Please try again")
             }
         }
 
