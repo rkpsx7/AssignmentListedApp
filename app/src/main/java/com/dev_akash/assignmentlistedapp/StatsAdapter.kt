@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dev_akash.assignmentlistedapp.data.Stats
 import com.dev_akash.assignmentlistedapp.databinding.ItemStatsBinding
-import com.dev_akash.assignmentlistedapp.utils.ViewExtensions.loadImage
+import com.dev_akash.assignmentlistedapp.utils.loadImage
 
 class StatsAdapter : RecyclerView.Adapter<StatsAdapter.StatsVH>() {
 

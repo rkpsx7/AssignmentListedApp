@@ -15,6 +15,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTopLinks"
             android:layout_width="match_parent"
+            android:overScrollMode="never"
             android:layout_height="match_parent" />
 
     </FrameLayout>

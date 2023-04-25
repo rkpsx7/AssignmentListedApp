@@ -6,10 +6,11 @@ import android.widget.Toast
 import com.dev_akash.assignmentlistedapp.ApplicationKClass
 
 object ClipboardService {
-    fun copyToClipboard(context: Context,text: String) {
-        val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+    fun copyToClipboard(context: Context, text: String) {
+        val clipboard =
+            context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
         val clip = ClipData.newPlainText("Copied Text", text)
         clipboard.setPrimaryClip(clip)
-        Toast.makeText(context,"Link Copied!",Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Link Copied!", Toast.LENGTH_SHORT).show()
     }
 }

@@ -9,15 +9,15 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:fillViewport="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_height="match_parent">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/app_primary"
-        tools:context=".MainActivity">
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/app_primary"
+            tools:context=".MainActivity">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvDashboard"
@@ -92,6 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:overScrollMode="never"
                     android:orientation="horizontal"
                     app:layout_constraintTop_toBottomOf="@id/chartLayout" />
 
@@ -104,6 +105,7 @@
                     android:fontFamily="@font/figtree_medium"
                     android:paddingVertical="12dp"
                     android:text="@string/view_analytics"
+                    app:rippleColor="@color/transparent"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
                     android:textSize="16sp"
@@ -124,25 +126,100 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/btnViewAnalytics"
                     app:tabGravity="center"
-                    app:tabTextAppearance="@style/customfontstyle"
                     app:tabIndicator="@drawable/tab_indicator"
                     app:tabIndicatorAnimationMode="elastic"
                     app:tabIndicatorColor="@color/app_primary"
                     app:tabIndicatorGravity="stretch"
                     app:tabMode="fixed"
+                    app:layout_constraintEnd_toStartOf="@id/btnSearch"
                     app:tabRippleColor="@null"
                     app:tabSelectedTextColor="@color/white"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:tabTextAppearance="@style/customfontstyle"
                     app:tabTextColor="#999CA0" />
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/viewPager"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="22dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
                     app:layout_constraintTop_toBottomOf="@id/tabLayout" />
 
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btnSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp40"
+                    android:background="@color/transparent"
+                    app:layout_constraintStart_toEndOf="@id/tabLayout"
+                    android:src="@drawable/ic_search"
+                    app:layout_constraintBottom_toBottomOf="@id/tabLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tabLayout" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnViewAllLinks"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/figtree_medium"
+                    android:paddingVertical="12dp"
+                    android:text="@string/view_all_links"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:cornerRadius="@dimen/dp8"
+                    app:rippleColor="@color/transparent"
+                    app:icon="@drawable/ic_link"
+                    app:iconGravity="textStart"
+                    app:iconTint="@color/black"
+                    app:layout_constraintTop_toBottomOf="@id/viewPager"
+                    app:strokeColor="#D8D8D8"
+                    app:strokeWidth="1dp" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/btnChatWithUs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/chat_with_us_bg"
+                    android:drawableStart="@drawable/ic_whatsapp"
+                    android:drawablePadding="12dp"
+                    android:fontFamily="@font/figtree_bold"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="20dp"
+                    android:text="@string/talk_with_us"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnViewAllLinks" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/btnFaq"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp16"
+                    android:layout_marginBottom="60dp"
+                    android:background="@drawable/faq_bg"
+                    android:drawableStart="@drawable/ic_faq"
+                    android:drawablePadding="12dp"
+                    android:fontFamily="@font/figtree_bold"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="20dp"
+                    android:text="@string/frequently_asked_questions"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnChatWithUs" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
 </layout>

@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dev_akash.assignmentlistedapp.data.LinksDto
 import com.dev_akash.assignmentlistedapp.databinding.ItemLinkViewBinding
 import com.dev_akash.assignmentlistedapp.utils.ClipboardService
-import com.dev_akash.assignmentlistedapp.utils.ViewExtensions.loadImage
+import com.dev_akash.assignmentlistedapp.utils.loadImage
 
-class LinksViewAdapter() : RecyclerView.Adapter<LinksViewAdapter.LinksViewVH>() {
+class LinksViewAdapter : RecyclerView.Adapter<LinksViewAdapter.LinksViewVH>() {
 
     var links: List<LinksDto> = arrayListOf()
 
