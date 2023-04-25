@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
             }?: kotlin.run {
                 binding.progressBar.visibilityGone()
                 showToast("Something went wrong!")
-                showToast("Please try again")
+                showToast("Please check your connection")
             }
         }
 
