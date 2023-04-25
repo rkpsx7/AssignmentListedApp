@@ -1,6 +1,7 @@
 package com.dev_akash.assignmentlistedapp.data
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 data class LinksDto(
 
@@ -19,7 +20,7 @@ data class LinksDto(
     @SerializedName("times_ago")
     var timesAgo: String? = null,
     @SerializedName("created_at")
-    var createdAt: String? = null,
+    var createdAt: Date? = null,
     @SerializedName("domain_id")
     var domainId: String? = null,
     @SerializedName("url_prefix")

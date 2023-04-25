@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dev_akash.assignmentlistedapp.data.LinksDto
 import com.dev_akash.assignmentlistedapp.databinding.ItemLinkViewBinding
 import com.dev_akash.assignmentlistedapp.utils.ClipboardService
+import com.dev_akash.assignmentlistedapp.utils.DateTimeUtils.getFormattedDate
 import com.dev_akash.assignmentlistedapp.utils.loadImage
 
 class LinksViewAdapter : RecyclerView.Adapter<LinksViewAdapter.LinksViewVH>() {
@@ -19,7 +20,7 @@ class LinksViewAdapter : RecyclerView.Adapter<LinksViewAdapter.LinksViewVH>() {
             binding.apply {
                 icon.loadImage(item.originalImage)
                 tvTitle.text = item.title
-                tvSubTitle.text = ""
+                tvSubTitle.text = getFormattedDate(item.createdAt)
                 tvClicks.text = item.totalClicks.toString()
 
                 tvLink.text = item.webLink

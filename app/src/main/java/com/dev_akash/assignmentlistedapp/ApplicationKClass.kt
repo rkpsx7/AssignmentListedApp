@@ -2,6 +2,7 @@ package com.dev_akash.assignmentlistedapp
 
 import android.app.Application
 import com.dev_akash.assignmentlistedapp.utils.AuthTokenManager
+import com.dev_akash.assignmentlistedapp.utils.SharedPrefs
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
@@ -12,6 +13,7 @@ class ApplicationKClass : Application() {
     lateinit var tokenManager: AuthTokenManager
     override fun onCreate() {
         super.onCreate()
+        SharedPrefs.loadAppPrefs(this)
         mockSavingTokenToPrefs()
     }
 

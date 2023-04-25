@@ -9,6 +9,8 @@ import com.dev_akash.assignmentlistedapp.data.LinksDto
 import com.dev_akash.assignmentlistedapp.data.Resource
 import com.dev_akash.assignmentlistedapp.data.Stats
 import com.dev_akash.assignmentlistedapp.repository.DashboardRepo
+import com.dev_akash.assignmentlistedapp.utils.Constants.SUPPORT_WHATSAPP_NUMBER
+import com.dev_akash.assignmentlistedapp.utils.SharedPrefs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -36,6 +38,7 @@ class MainViewModel @Inject constructor(
 
             when (res.status) {
                 Resource.Status.SUCCESS -> {
+                    saveSupportNumber(res.data?.supportWhatsappNumber)
                     prepareStatsList(res.data)
                     setTopLinks(res.data)
                     setRecentLinks(res.data)
@@ -46,6 +49,10 @@ class MainViewModel @Inject constructor(
                 else -> {}
             }
         }
+    }
+
+    private fun saveSupportNumber(supportWhatsappNumber: String?) {
+        SharedPrefs.setStringParam(SUPPORT_WHATSAPP_NUMBER,supportWhatsappNumber)
     }
 
     private fun setRecentLinks(data: DashBoardResponse?) {

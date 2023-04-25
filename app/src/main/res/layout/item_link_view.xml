@@ -90,14 +90,14 @@
                     android:id="@+id/tvClicksTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
                     android:fontFamily="@font/figtree_regular"
                     android:maxLines="1"
                     android:text="@string/clicks"
                     android:textColor="#999CA0"
                     android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tvSubTitle"
                     app:layout_constraintEnd_toEndOf="@id/tvClicks"
-                    app:layout_constraintTop_toBottomOf="@id/tvClicks" />
+                    app:layout_constraintTop_toTopOf="@id/tvSubTitle" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/link_card_dotted_bg"
                 android:paddingHorizontal="12dp"
-                android:paddingVertical="14dp">
+                android:paddingVertical="12dp">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvLink"
@@ -120,7 +120,6 @@
                     android:fontFamily="@font/figtree_regular"
                     android:maxLines="1"
                     android:textColor="#0E6FFF"
-                    android:textSize="12sp"
                     tools:text="https://samplelink.oia.bio/ashd/samplelink.oia.bio/ashd/samplelink.oia.bio/ashd" />
 
 
@@ -130,7 +129,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:padding="8dp"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="2dp"
                     android:src="@drawable/ic_copy" />
 
             </RelativeLayout>

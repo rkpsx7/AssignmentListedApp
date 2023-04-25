@@ -1,24 +1,28 @@
 package com.dev_akash.assignmentlistedapp
 
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
+import android.graphics.Shader
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.dev_akash.assignmentlistedapp.databinding.ActivityMainBinding
+import com.dev_akash.assignmentlistedapp.utils.Constants.SUPPORT_WHATSAPP_NUMBER
+import com.dev_akash.assignmentlistedapp.utils.DateTimeUtils.getGreetingText
 import com.dev_akash.assignmentlistedapp.utils.DateTimeUtils.getMonthValueFromDate
-import com.github.mikephil.charting.components.AxisBase
+import com.dev_akash.assignmentlistedapp.utils.SharedPrefs
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -74,8 +78,11 @@ class MainActivity : AppCompatActivity() {
 
         setUpTabs()
 
+        setUserProfile()
+
         setStats()
 
+        setUpButtons()
 
         val xtr = map.map {
             Entry(getMonthValueFromDate(it.key), it.value.toFloat())
@@ -118,19 +125,37 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun setUpButtons() {
+        binding.btnChatWithUs.setOnClickListener {
+
+            val mobileNumber = SharedPrefs.getStringParam(SUPPORT_WHATSAPP_NUMBER)
+            if (isWhatsAppInstalled()) {
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse("http://api.whatsapp.com/send?phone=+91$mobileNumber")
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "WhatsApp is not installed on your device", Toast.LENGTH_SHORT)
+                    .show()
+            }
+
+        }
+    }
+
+    private fun setUserProfile() {
+        binding.apply {
+            tvGreeting.text = getGreetingText()
+            tvName.text = "Ajay Manva" //Hardcoding name as API doesn't provide profile details
+        }
+    }
+
     private fun setUpTabs() {
         val tabAdapter = LinksTabAdapter(supportFragmentManager, lifecycle)
         binding.viewPager.isSaveEnabled = true
         binding.viewPager.adapter = tabAdapter
 
-//        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-//            tab.text = getTabNames(position)
-//        }.attach()
-
         binding.tabLayout.apply {
             addTab(newTab().setText("Top Links"))
             addTab(newTab().setText("Recent Links"))
-
         }
 
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -138,12 +163,8 @@ class MainActivity : AppCompatActivity() {
                 binding.viewPager.currentItem = tab?.position ?: 0
             }
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-
-            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
 
         })
 
@@ -167,5 +188,15 @@ class MainActivity : AppCompatActivity() {
         viewModel.statsLiveData.observe(this) {
             statsAdapter.submitList(it)
         }
+    }
+
+    private fun isWhatsAppInstalled(): Boolean {
+        val isInstalled: Boolean = try {
+            packageManager.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES)
+            true
+        } catch (e: PackageManager.NameNotFoundException) {
+            false
+        }
+        return isInstalled
     }
 }
