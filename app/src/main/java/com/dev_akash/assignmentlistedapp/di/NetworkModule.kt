@@ -1,8 +1,10 @@
 package com.dev_akash.assignmentlistedapp.di
 
+import com.dev_akash.assignmentlistedapp.core.ApplicationKClass
 import com.dev_akash.assignmentlistedapp.utils.Constants.BASE_URL
 import com.dev_akash.assignmentlistedapp.network.AuthInterceptor
 import com.dev_akash.assignmentlistedapp.network.DashBoardApi
+import com.dev_akash.assignmentlistedapp.network.NetworkConnectionInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,7 +30,10 @@ class NetworkModule {
     @Singleton
     @Provides
     fun providesOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient {
-        return OkHttpClient.Builder().addInterceptor(authInterceptor).build()
+        return OkHttpClient.Builder()
+            .addInterceptor(NetworkConnectionInterceptor(ApplicationKClass.INSTANCE.applicationContext))
+            .addInterceptor(authInterceptor)
+            .build()
     }
 
     @Singleton

@@ -13,9 +13,9 @@ import com.dev_akash.assignmentlistedapp.repository.DashboardRepo
 import com.dev_akash.assignmentlistedapp.utils.Constants.SUPPORT_WHATSAPP_NUMBER
 import com.dev_akash.assignmentlistedapp.utils.DateTimeUtils.getMonthValueFromDate
 import com.dev_akash.assignmentlistedapp.utils.SharedPrefs
+import com.dev_akash.assignmentlistedapp.utils.ioJob
 import com.github.mikephil.charting.data.Entry
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -41,7 +41,7 @@ class MainViewModel @Inject constructor(
         get() = _recentLinksLiveData
 
     fun getDashboardData() {
-        viewModelScope.launch(Dispatchers.IO) {
+        ioJob {
             val res = repo.getDashboardData()
 
             when (res.status) {
