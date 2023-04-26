@@ -54,7 +54,6 @@ class MainViewModel @Inject constructor(
                 Resource.Status.ERROR -> {
                     _chartsLiveData.postValue(null)
                 }
-                else -> {}
             }
         }
     }
