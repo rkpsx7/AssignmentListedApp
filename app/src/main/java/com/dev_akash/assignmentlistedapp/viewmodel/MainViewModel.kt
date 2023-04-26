@@ -13,6 +13,7 @@ import com.dev_akash.assignmentlistedapp.repository.DashboardRepo
 import com.dev_akash.assignmentlistedapp.utils.Constants.SUPPORT_WHATSAPP_NUMBER
 import com.dev_akash.assignmentlistedapp.utils.DateTimeUtils.getMonthValueFromDate
 import com.dev_akash.assignmentlistedapp.utils.SharedPrefs
+import com.dev_akash.assignmentlistedapp.utils.getStringResource
 import com.dev_akash.assignmentlistedapp.utils.ioJob
 import com.github.mikephil.charting.data.Entry
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -121,12 +122,16 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             val statList = ArrayList<Stats>()
             data?.let {
-                val location = if (it.topLocation.isNullOrEmpty()) "N/A" else it.topLocation.toString()
-                val source = if (it.topLocation.isNullOrEmpty()) "N/A" else it.topSource.toString()
+                val location = if (it.topLocation.isNullOrEmpty()) getStringResource(R.string.n_a) else it.topLocation.toString()
+                val source = if (it.topLocation.isNullOrEmpty()) getStringResource(R.string.n_a) else it.topSource.toString()
 
-                statList.add(Stats(R.drawable.ic_todays_click, "${it.todayClicks ?: "N/A"}", "Today's click"))
-                statList.add(Stats(R.drawable.ic_location, location, "Top Location"))
-                statList.add(Stats(R.drawable.ic_source, source, "Top Source"))
+                statList.add(Stats(
+                    R.drawable.ic_todays_click,
+                    "${it.todayClicks ?: getStringResource(R.string.n_a)}",
+                    getStringResource(R.string.tofays_click)))
+
+                statList.add(Stats(R.drawable.ic_location, location, getStringResource(R.string.top_location)))
+                statList.add(Stats(R.drawable.ic_source, source, getStringResource(R.string.top_source)))
             }
 
             _statsLiveData.postValue(statList)

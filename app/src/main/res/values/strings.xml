@@ -21,4 +21,8 @@
     <string name="something_error_msg">Something went wrong!</string>
     <string name="check_connection">Please check your connection</string>
     <string name="whatsapp_package_name">com.whatsapp</string>
+    <string name="tofays_click">Today\'s click</string>
+    <string name="top_location">Top Location</string>
+    <string name="top_source">Top Source</string>
+    <string name="n_a">N/A</string>
 </resources>
