@@ -84,8 +84,8 @@ class MainActivity : AppCompatActivity() {
                 lineChart.invalidate()
             }?: kotlin.run {
                 binding.progressBar.visibilityGone()
-                showToast("Something went wrong!")
-                showToast("Please check your connection")
+                showToast(getString(R.string.something_error_msg))
+                showToast(getString(R.string.check_connection))
             }
         }
 
@@ -204,7 +204,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun isWhatsAppInstalled(): Boolean {
         val isInstalled: Boolean = try {
-            packageManager.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES)
+            packageManager.getPackageInfo(getString(R.string.whatsapp_package_name), PackageManager.GET_ACTIVITIES)
             true
         } catch (e: PackageManager.NameNotFoundException) {
             false
