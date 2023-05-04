@@ -16,6 +16,7 @@
 - Android
 - Kotlin
 - MVVM Architecture
+- LiveData
 - Retrofit 2 
 - [MPAndroidChart - Library for Chart Implementation](https://github.com/PhilJay/MPAndroidChart)
 - Glide (for loading images)
