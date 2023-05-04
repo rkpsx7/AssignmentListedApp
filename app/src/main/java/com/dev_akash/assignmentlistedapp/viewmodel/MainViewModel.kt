@@ -123,7 +123,7 @@ class MainViewModel @Inject constructor(
             val statList = ArrayList<Stats>()
             data?.let {
                 val location = if (it.topLocation.isNullOrEmpty()) getStringResource(R.string.n_a) else it.topLocation.toString()
-                val source = if (it.topLocation.isNullOrEmpty()) getStringResource(R.string.n_a) else it.topSource.toString()
+                val source = if (it.topSource.isNullOrEmpty()) getStringResource(R.string.n_a) else it.topSource.toString()
 
                 statList.add(Stats(
                     R.drawable.ic_todays_click,
